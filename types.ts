@@ -1,25 +1,42 @@
 export type User = {
-	user: {
-		id: number;
-		username: string;
-		email: string;
-		admin: boolean;
-		created: string;
-		updated?: string;
-	};
-	token: string;
-	expiresIn: number;
+  user: {
+    id: number;
+    username: string;
+    email: string;
+    admin: boolean;
+    created: string;
+    updated?: string;
+  };
+  token: string;
+  expiresIn: number;
 };
 
 export type Order = {
-	id: string;
-	created: string;
-	current_state: string;
-	current_state_created: string;
+  id: string;
+  created: string;
+  current_state: string;
+  current_state_created: string;
 };
 
 export type Orders = {
-	limit: number;
-	offset: number;
-	items: Array<Order>;
+  limit: number;
+  offset: number;
+  items: Array<Order>;
+};
+
+export type MenuItem = {
+  id: number;
+  category: number;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  created: string;
+  updated: string;
+};
+
+export type Menu = {
+  limit: number;
+  offset: number;
+  items: Array<MenuItem>;
 };

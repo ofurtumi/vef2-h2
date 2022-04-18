@@ -1,0 +1,28 @@
+.prison {
+  max-width: 1000px;
+  margin: 1em;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.cell,
+.suite {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+  height: 100%;
+}
+
+.suite {
+  justify-content: center;
+  align-items: center;
+}
+
+.cell *,
+.suite * {
+  margin: 0;
+}
