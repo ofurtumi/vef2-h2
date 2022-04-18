@@ -5,8 +5,6 @@ import { useState } from "react";
 const Menu = (props: { menu: Menu, orderArray: Array<number> }) => {
   // const [orders, setOrders] = useState(Array.apply(null, Array(props.menu.items.length)).map(function (x=0) { return x; }));
   const [orders, setOrders] = useState(props.orderArray);
-  // ! okok svo þetta "virkar" en ehv týpu vandamál, laga þetta setja any eða ehv þannig
-  // todo: setja ákv týpu á þetta eða bara leysa öðruvísi
   const sum = orders.reduce((acc, item) => acc + item, 0);
   
   return (
@@ -17,7 +15,6 @@ const Menu = (props: { menu: Menu, orderArray: Array<number> }) => {
             <h1>{item.title}</h1>
             <p>{item.description}</p>
             <h2>{item.price}</h2>
-            {/* // ! bruh hvernig í fokkanum set ég any á þetta shit */}
             <h3>{orders[i]}</h3>
             {/* <Image src={item.image} layout='fill'></Image> */}
             <button
