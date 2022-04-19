@@ -8,7 +8,7 @@ const Orders = (props: { user: User; orders: Orders }) => {
   const router = useRouter();
   useEffect(() => {
     if (!props.user) {
-      window.localStorage.setItem("loggedIn", "false");
+      window.localStorage.setItem("isLoggedIn", "false");
       router.push("/");
     } else setOrders(props.orders.items);
   });
