@@ -1,18 +1,17 @@
 import { Menu } from '../types';
 import styles from '../styles/main.module.css';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useCookies } from 'react-cookie';
+import { GetServerSidePropsContext } from 'next';
 
 const Menu = (props: { menu: Menu; orderArray: Array<number> }) => {
-	const [cart, setCart] = useState(
-		window.localStorage.getItem('cart')
-			? JSON.parse(window.localStorage.getItem('cart') ?? '')
-			: props.orderArray
-	);
-  
+	const [cart, setCart] = useState<number[]>(props.orderArray);
+  const [cookie, setCookie] = useCookies(['cart'])
+  // console.log('endalaust')
+
 	useEffect(() => {
-		window.localStorage.setItem('cart', JSON.stringify(cart));
-	});
+     setCookie('cart', JSON.stringify(cart), {sameSite: true})
+	},[cart]);
 
 	return (
 		<div className={styles.root}>
@@ -51,7 +50,7 @@ const Menu = (props: { menu: Menu; orderArray: Array<number> }) => {
 	);
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
 	const rawMenu = await fetch(
 		'https://vef2-2022-h1-synilausn.herokuapp.com/menu'
 	);
@@ -62,6 +61,13 @@ export async function getServerSideProps() {
 	for (let i = 0; i < orderArray.length; i++) {
 		orderArray[i] = 0;
 	}
+  try {
+    if (context.req.cookies['cart']) {
+      orderArray = JSON.parse(context.req.cookies['cart'])
+    }
+  } catch (error) {
+    console.error("asdf",error)
+  }
 
 	return {
 		props: { menu, orderArray }, // will be passed to the page component as props

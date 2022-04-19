@@ -14,9 +14,7 @@ const Orders = (props: { user: User; orders: Orders }) => {
 		} else setOrders(props.orders.items);
 	});
 
-	const rOrders = orders.slice(0).reverse();
-	// console.log('orders --> ', orders)
-	// console.log('rOrders --> ', rOrders)
+	const rOrders:Array<Order> = orders.slice(0).reverse();
 
 	return (
 		<div className={styles.root}>
