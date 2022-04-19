@@ -6,6 +6,20 @@ const Menu = (props: { menu: Menu, orderArray: Array<number> }) => {
   // const [orders, setOrders] = useState(Array.apply(null, Array(props.menu.items.length)).map(function (x=0) { return x; }));
   const [orders, setOrders] = useState(props.orderArray);
   const sum = orders.reduce((acc, item) => acc + item, 0);
+
+  function showOrder() {
+    return (
+      <div>
+        {props.menu.items.map((item, i) => {
+          if (orders[i] && orders[i] > 0) {
+            return (
+              <p key={i}>{item.title} #{orders[i]}</p>
+            )
+          }
+        })}
+      </div>
+    )
+  }
   
   return (
     <div className={styles.prison}>
@@ -29,7 +43,16 @@ const Menu = (props: { menu: Menu, orderArray: Array<number> }) => {
           </div>
         );
       })}
-      <p>summa: {sum}</p>
+      <div>
+        {props.menu.items.map((item, i) => {
+          if (orders[i] && orders[i] > 0) {
+            return (
+              <p key={i}>{item.title} #{orders[i]}</p>
+            )
+          }
+        })}
+        <h2>{sum}</h2>
+      </div>
     </div>
   );
 };
