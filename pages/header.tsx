@@ -2,13 +2,6 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const Header = () => {
-	const [loggedIn, setLoggedIn] = useState(false);
-	useEffect(() => {
-		const isLoggedIn = JSON.parse(
-			window.localStorage.getItem('isLoggedIn') ?? 'false'
-		);
-		setLoggedIn(isLoggedIn);
-	});
 	return (
 		<nav
 			style={{
@@ -27,15 +20,6 @@ const Header = () => {
 			<Link href="/cart" passHref>
 				Karfa
 			</Link>
-			{loggedIn ? (
-				<Link href="/admin/orders" passHref>
-					pantanir
-				</Link>
-			) : (
-				<Link href="/admin" passHref>
-					innskráning
-				</Link>
-			)}
 		</nav>
 	);
 };

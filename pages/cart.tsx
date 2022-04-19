@@ -13,9 +13,8 @@ type Cart = {
 const Cart = (props: { menu: Menu; cookie: Array<number> }) => {
 	const router = useRouter();
 	const [cart, setCart] = useState(props.cookie);
-    const [cookie, setCookie] = useCookies(['cart'])
-    const [order, setOrder] = useCookies(['order'])
-
+	const [cookie, setCookie] = useCookies(['cart']);
+	const [order, setOrder] = useCookies(['order']);
 
 	const sum = cart.reduce((acc: number, item: number) => acc + item, 0);
 
@@ -28,7 +27,6 @@ const Cart = (props: { menu: Menu; cookie: Array<number> }) => {
 			}
 		);
 		const cartJson: Cart = await cartData.json();
-        console.log('cart id og ehv --> ', cartJson)
 
 		// * bætir í körfu öllu draslinu sem er til
 		props.menu.items.map(async (item, i) => {
@@ -37,7 +35,7 @@ const Cart = (props: { menu: Menu; cookie: Array<number> }) => {
 					product: item.id,
 					quantity: cart[i],
 				});
-                console.log('orderItem --> ', orderItem)
+				console.log('orderItem --> ', orderItem);
 				const options = {
 					method: 'POST',
 					headers: {
@@ -72,15 +70,14 @@ const Cart = (props: { menu: Menu; cookie: Array<number> }) => {
 		if (order.ok) {
 			const orderJSON = await order.json();
             console.log('orderJSON --> ', orderJSON)
-            
-			window.localStorage.setItem('orderId', orderJSON.id);
-            setCookie('cart','',{maxAge:-1})
-            setOrder('order',orderJSON.id)
+			setCookie('cart', '', { maxAge: -1 });
+			setOrder('order', orderJSON.id);
 			router.push('/cartSuccess');
 		}
 	}
 	return (
 		<div className={styles.root}>
+            <h1>Pöntun:</h1>
 			<div className={styles.prison}>
 				{props.menu.items.map((item, i) => {
 					if (cart[i] && cart[i] > 0) {
@@ -92,9 +89,9 @@ const Cart = (props: { menu: Menu; cookie: Array<number> }) => {
 						);
 					}
 				})}
-				<h2>{sum}</h2>
+				<h2 style={{gridColumn:'1'}}>{sum}</h2>
+				<button style={{gridColumn:'2'}} onClick={makeOrder}>Staðfesta pöntun</button>
 			</div>
-			<button onClick={makeOrder}>Staðfesta pöntun</button>
 		</div>
 	);
 };
@@ -105,12 +102,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 	let menu = null;
 	if (rawMenu.ok) menu = await rawMenu.json();
 
-    let cookie:Array<number> = []
-    try {
-        if (context.req.cookies['cart']) cookie = JSON.parse(context.req.cookies['cart'])
-    } catch (error) {
-        
-    }
+	let cookie: Array<number> = [];
+	try {
+		if (context.req.cookies['cart'])
+			cookie = JSON.parse(context.req.cookies['cart']);
+	} catch (error) {}
 
 	return {
 		props: { menu, cookie }, // will be passed to the page component as props

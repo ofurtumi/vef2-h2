@@ -14,25 +14,21 @@ const Orders = (props: { user: User; orders: Orders }) => {
 		} else setOrders(props.orders.items);
 	});
 
-	const rOrders:Array<Order> = orders.slice(0).reverse();
+	const rOrders: Array<Order> = orders.slice(0).reverse();
 
 	return (
 		<div className={styles.root}>
 			<div className={styles.prison}>
 				{rOrders.map((order, i) => {
-					if (order.current_state !== 'FINISHED') {
-						return (
-							<div key={i} className={styles.cell}>
-								<h2 style={{ margin: '0' }}>{i}</h2>
-								<p>Order id: {order.id}</p>
-								<p>Order status: {order.current_state}</p>
-								<p>Order created: {order.created}</p>
-								<p>
-									Order updated: {order.current_state_created}
-								</p>
-							</div>
-						);
-					}
+					return (
+						<div key={i} className={styles.cell}>
+							<h2 style={{ margin: '0' }}>{i+1}</h2>
+							<p>Order id: {order.id}</p>
+							<p>Order status: {order.current_state}</p>
+							<p>Order created: {order.created}</p>
+							<p>Order updated: {order.current_state_created}</p>
+						</div>
+					);
 				})}
 			</div>
 		</div>
@@ -44,7 +40,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 	let res = null;
 	try {
 		user = JSON.parse(context.req.cookies['user']);
-		const endpoint = `https://vef2-2022-h1-synilausn.herokuapp.com/orders`;
+		const endpoint = `https://vef2-2022-h1-synilausn.herokuapp.com/orders?offset=0&limit=100`;
 		const options = {
 			method: 'GET',
 			headers: {
