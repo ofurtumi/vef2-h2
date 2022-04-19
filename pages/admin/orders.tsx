@@ -13,9 +13,13 @@ const Orders = (props: { user: User; orders: Orders }) => {
     } else setOrders(props.orders.items);
   });
 
+  const rOrders = orders.slice(0).reverse()
+  console.log('orders --> ', orders)
+  console.log('rOrders --> ', rOrders)
+
   return (
     <div>
-      {orders.map((order, i) => {
+      {rOrders.map((order, i) => {
         if (order.current_state !== "FINISHED") {
           return (
             <div key={i}>
