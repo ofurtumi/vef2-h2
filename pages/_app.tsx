@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<CookiesProvider>
 			<Header />
-			<Component {...pageProps} />
+			<Component {...pageProps}/>
 		</CookiesProvider>
 	);
 }

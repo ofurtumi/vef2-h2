@@ -1,3 +1,9 @@
+.root {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
 .prison {
   max-width: 1000px;
   margin: 1em;
@@ -17,12 +23,18 @@
   height: 100%;
 }
 
-.suite {
-  justify-content: center;
-  align-items: center;
+.cell img {
+  object-fit: cover;
+  max-height: 200px;
+  max-width: 100%;
 }
 
 .cell *,
 .suite * {
   margin: 0;
+}
+
+.suite {
+  justify-content: center;
+  align-items: center;
 }

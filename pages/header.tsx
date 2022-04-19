@@ -24,6 +24,9 @@ const Header = () => {
 			<Link href="/menu" passHref>
 				Matseðill
 			</Link>
+			<Link href="/cart" passHref>
+				Karfa
+			</Link>
 			{loggedIn ? (
 				<Link href="/admin/orders" passHref>
 					pantanir
