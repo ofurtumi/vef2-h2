@@ -14,6 +14,7 @@ const Cart = (props: { menu: Menu; cookie: Array<number> }) => {
 	const router = useRouter();
 	const [cart, setCart] = useState(props.cookie);
     const [cookie, setCookie] = useCookies(['cart'])
+    const [order, setOrder] = useCookies(['order'])
 
 
 	const sum = cart.reduce((acc: number, item: number) => acc + item, 0);
@@ -74,7 +75,8 @@ const Cart = (props: { menu: Menu; cookie: Array<number> }) => {
             
 			window.localStorage.setItem('orderId', orderJSON.id);
             setCookie('cart','',{maxAge:-1})
-			// router.push('/cartSuccess');
+            setOrder('order',orderJSON.id)
+			router.push('/cartSuccess');
 		}
 	}
 	return (
