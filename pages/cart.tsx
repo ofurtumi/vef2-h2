@@ -31,6 +31,7 @@ const Cart = (props: {
 			}
 		);
 		const cartJson: Cart = await cartData.json();
+		console.log('cartJson.id --> ', cartJson.id)
 
 		// * bætir í körfu öllu draslinu sem er til
 		props.menu.items.map(async (item, i) => {
@@ -46,10 +47,11 @@ const Cart = (props: {
 					},
 					body: orderItem,
 				};
-				await fetch(
+				const temp = await fetch(
 					`https://vef2-2022-h1-synilausn.herokuapp.com/cart/${cartJson.id}`,
 					options
 				);
+				console.log('temp --> ', temp)
 			}
 		});
 
@@ -72,7 +74,11 @@ const Cart = (props: {
 		if (order.ok) {
 			const orderJSON = await order.json();
 			setCookie('cart', '', { maxAge: -1 });
-			setOrder('order', orderJSON.id);
+			setOrder('order', orderJSON.id, {
+				path: '/',
+				maxAge: 3600,
+				sameSite: true,
+			});
 			router.push('/cartSuccess');
 		}
 	}

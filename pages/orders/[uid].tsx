@@ -1,17 +1,65 @@
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { Order } from '../../types';
+import { useEffect, useState } from 'react';
+import { Order, User } from '../../types';
 import styles from '../../styles/main.module.css';
 
 const Order = (props: { order: Order; auth: boolean }) => {
 	const router = useRouter();
+	const [status, setStatus] = useState(
+		props.order.status[props.order.status.length - 1].state
+	);
+
+	let user: User;
+
 	useEffect(() => {
 		const isLoggedIn = JSON.parse(
 			window.localStorage.getItem('isLoggedIn') ?? 'false'
 		);
 		if (!isLoggedIn || !props.auth) router.push('/');
+		const tempUser = window.localStorage.getItem('user');
+		if (tempUser) user = JSON.parse(tempUser);
 	});
+
+	async function orderNextState() {
+		if (status !== 'FINISHED') {
+			const endpoint = `https://vef2-2022-h1-synilausn.herokuapp.com/orders/${props.order.id}`;
+			let body;
+
+			switch (status) {
+				case 'NEW':
+					body = { status: 'PREPARE' };
+					break;
+				case 'PREPARE':
+					body = { status: 'COOKING' };
+					break;
+				case 'COOKING':
+					body = { status: 'READY' };
+					break;
+				case 'READY':
+					body = { status: 'FINISHED' };
+					break;
+				default:
+					break;
+			}
+			const tmpStatus = body?.status;
+			body = JSON.stringify(body);
+
+			const options = {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + user.token,
+				},
+				body: body,
+			};
+			console.log('body --> ', body)
+
+			const update = await fetch(endpoint, options);
+			if (update.ok && tmpStatus) setStatus(tmpStatus);
+		}
+	}
+
 	return (
 		<div className={styles.root}>
 			{props.order ? (
@@ -38,7 +86,7 @@ const Order = (props: { order: Order; auth: boolean }) => {
 								].created
 							}
 						</h3>
-						<button>Næsta staða pöntunar</button>
+						<button onClick={orderNextState}>Næsta staða pöntunar</button>
 					</div>
 					<div className={styles.prison}>
 						{props.order.lines.map((line, i) => {

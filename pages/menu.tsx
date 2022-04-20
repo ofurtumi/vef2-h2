@@ -18,7 +18,7 @@ const Menu = (props: {
 	// console.log('endalaust')
 
 	useEffect(() => {
-		setCookie('cart', cart, { sameSite: true });
+		setCookie('cart', cart, { sameSite: true, path: '/', maxAge: 3600 });
 	}, [cart]);
 
 	function changeCart(id: number, change: number) {
