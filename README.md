@@ -28,6 +28,7 @@ Valmynd í haus hefur tengla á:
 - [x] Fyrir ofan, eða til hliðar, skal birta flokka. Þegar smellt er á flokk skal birta aðeins þær vörur sem eru í þeim flokk.
 
 - [ ] Fyrir ofan, eða til hliðar skal birta leitarglugga sem leitar í matseðli. Ef leit er virk og smellt er á flokk skal leita innan þess flokks.
+> GERA ÞETTA MR. !!!!
 
 - [x] Ef smellt er á vöru er birt síða fyrir vöruna með lýsingu á henni ásamt öllum gögnum um vöru. Einnig tengill til að fara til baka í matseðil eða bæta í körfu.
 
@@ -42,8 +43,8 @@ Valmynd í haus hefur tengla á:
 ## Pöntun
 
 - [ ] Þegar pöntun er orðin til er staðfesting birt notanda. Opnuð er WebSocket tenging við bakenda sem tekur við uppfærslum á stöðu pöntunar. Birt er einhversskonar tilkynning um að beðið sé eftir uppfærslum.
-
 - [ ] Ef WebSocket tenging lokast er reynt að opna hana aftur.
+> Stína
 
 ## Notendaumsjón
 
@@ -60,8 +61,8 @@ Ef notandi er innskráður sem stjórnandi er hægt að:
 
 - [ ] Búa til, eyða, breyta flokk
 - [ ] Búa til, eyða, breyta vöru á matseðli
-- [ ] Skoða lista af pöntunum og velja pöntun
-- [ ] Fyrir opna pöntun, breyta stöðu ef staða er ekki komin í lokastöðu
+- [x] Skoða lista af pöntunum og velja pöntun
+- [x] Fyrir opna pöntun, breyta stöðu ef staða er ekki komin í lokastöðu
 - [ ] Fara á síðu sem birtir pantanir sem koma inn með því að tengjast WebSocket, þegar pöntun kemur inn skal vera hægt að opna hana til að breyta stöðu hennar
 
 Stöður pöntunar eru:
@@ -80,15 +81,14 @@ Stöður pöntunar eru:
 
 - [x] Setja skal verkefnið upp með Next.js og TypeScript. Setja skal upp með _server-side rendering_.
 
-- [ ] Þegar kallað er í vefþjónustu skal birta loading state og bregðast við villum. Þar sem gögn geta verið tóm skal huga að empty state.
+- [x] Þegar kallað er í vefþjónustu skal birta loading state og bregðast við villum. Þar sem gögn geta verið tóm skal huga að empty state.
 
 - [ ] Ef síða finnst ekki skal birta 404 síðu.
-> þarf að bæta við custom
-
 - [ ] Ef reynt er að skoða síðu sem ekki er heimild til að skoða skal birta að ekki sé heimild til að skoða.
+> gunnar eða stína nennið þið
 
 # Tæki og tól
 
 - [ ] Setja skal upp eslint fyrir JavaScript. Engar villur skulu koma fram ef npm run lint er keyrt. Leyfilegt er að skilgreina hvaða reglusett er notað, ekki er krafa um að nota það sem hefur verið notað í öðrum verkefnum.
-
 - [ ] Skrifa skal a.m.k. fjögur test með [Cypress](https://www.cypress.io/). Í `README` skal tiltaka hvernig test eru keyrð.
+> Gunnar

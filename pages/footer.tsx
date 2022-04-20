@@ -39,7 +39,7 @@ const Footer = () => {
 					</Link>
 				</div>
 			) : (
-				<Link href="/admin" passHref>
+				<Link href="/admin/login" passHref>
 					innskráning
 				</Link>
 			)}
