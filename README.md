@@ -16,8 +16,7 @@ Valmynd í haus hefur tengla á:
 
 ## Forsíða
 
-- [ ] Forsíða hefur „statísk“ gögn með dummy content og mynd, setjið inn eigið með t.d. `lorem ipsum` texti og myndum frá [Unsplash](unsplash.com/)
-- *vantar mynd annars tæknilega komið*
+- [x] Forsíða hefur „statísk“ gögn með dummy content og mynd, setjið inn eigið með t.d. `lorem ipsum` texti og myndum frá [Unsplash](unsplash.com/)
 
 ## Matseðill
 

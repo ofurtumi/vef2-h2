@@ -20,13 +20,16 @@ const Menu = (props: { menu: Menu; orderArray: Array<number> }) => {
 				{props.menu.items.map((item, i) => {
 					return (
 						<div key={i} className={styles.cell}>
-							<a style={{width: '100%'}} href={'/food/' + item.id}>
+							<a
+								style={{ width: '100%' }}
+								href={'/food/' + item.id}
+							>
 								<span>
 									<h1>{item.title}</h1>
 									<h2>{item.price}kr</h2>
 								</span>
 							</a>
-								<img src={item.image} alt="" />
+							<img src={item.image} alt="" />
 							<div className={styles.cellButtons}>
 								<button
 									onClick={() => {

@@ -9,21 +9,35 @@ const Footer = () => {
 		);
 		setLoggedIn(isLoggedIn);
 	});
+	const JC = loggedIn ? 'space-between' : 'flex-end';
 	return (
 		<footer
 			style={{
 				width: '95%',
 				margin: '0 auto',
 				display: 'flex',
-				justifyContent: 'flex-end',
+				justifyContent: JC,
 				position: 'fixed',
 				bottom: '1em',
 			}}
 		>
+			{loggedIn ? <p style={{ margin: '0 1em' }}>Innskráð/ur</p> : null}
+
 			{loggedIn ? (
-				<Link href="/admin/orders" passHref>
-					pantanir
-				</Link>
+				<div
+					style={{
+						display: 'flex',
+						justifyContent: 'space-between',
+						gap: '2em',
+					}}
+				>
+					<Link href="/admin/logout" passHref>
+						útskráning
+					</Link>
+					<Link href="/admin/orders" passHref>
+						pantanir
+					</Link>
+				</div>
 			) : (
 				<Link href="/admin" passHref>
 					innskráning
