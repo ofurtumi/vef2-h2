@@ -110,10 +110,15 @@ const Cart = (props: {
 					}
 				})}
 				{/* <h2 style={{gridColumn:'1'}}>{sum}</h2> */}
-				<input type="text" placeholder='Nafn fyrir pöntun' style={{gridColumn: 'span 2'}} onChange={(event) => {
-					setName(event.target.value)
-					// console.log('event --> ', event.target.value)
-				}}/>
+				<input
+					type="text"
+					placeholder="Nafn fyrir pöntun"
+					style={{ gridColumn: 'span 2' }}
+					onChange={(event) => {
+						setName(event.target.value);
+						// console.log('event --> ', event.target.value)
+					}}
+				/>
 				<button style={{ gridColumn: 'span 2' }} onClick={makeOrder}>
 					Staðfesta pöntun
 				</button>

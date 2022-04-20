@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Order, Orders, User } from '../../types';
 import styles from '../../styles/main.module.css';
+import Link from 'next/link';
 
 const Orders = (props: { user: User; orders: Orders }) => {
 	const [orders, setOrders] = useState<Order[]>([]);
@@ -21,13 +22,17 @@ const Orders = (props: { user: User; orders: Orders }) => {
 			<div className={styles.prison}>
 				{rOrders.map((order, i) => {
 					return (
-						<div key={i} className={styles.cell}>
-							<h2 style={{ margin: '0' }}>{i+1}</h2>
-							<p>Order id: {order.id}</p>
-							<p>Order status: {order.current_state}</p>
-							<p>Order created: {order.created}</p>
-							<p>Order updated: {order.current_state_created}</p>
-						</div>
+						<Link key={i} href={'/orders/' + order.id}>
+							<div className={styles.cell}>
+								<h2 style={{ margin: '0' }}>{i + 1}</h2>
+								<p>Order id: {order.id}</p>
+								<p>Order status: {order.current_state}</p>
+								<p>Order created: {order.created}</p>
+								<p>
+									Order updated: {order.current_state_created}
+								</p>
+							</div>
+						</Link>
 					);
 				})}
 			</div>
