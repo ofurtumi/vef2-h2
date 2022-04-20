@@ -10,13 +10,17 @@ type Cart = {
 	created: string;
 };
 
-const Cart = (props: { menu: Menu; cookie: Array<number> }) => {
+const Cart = (props: {
+	menu: Menu;
+	cookie: Array<{ id: number; quantity: number }>;
+}) => {
 	const router = useRouter();
+	const [name, setName] = useState('no-name');
 	const [cart, setCart] = useState(props.cookie);
 	const [cookie, setCookie] = useCookies(['cart']);
 	const [order, setOrder] = useCookies(['order']);
 
-	const sum = cart.reduce((acc: number, item: number) => acc + item, 0);
+	// const sum = cart.reduce((acc: number, item: number) => acc + item, 0);
 
 	async function makeOrder() {
 		// * býr til körfu til, eftir parse er það Cart hlutur með id
@@ -30,12 +34,11 @@ const Cart = (props: { menu: Menu; cookie: Array<number> }) => {
 
 		// * bætir í körfu öllu draslinu sem er til
 		props.menu.items.map(async (item, i) => {
-			if (cart[i] && cart[i] > 0) {
+			if (cart[i] && cart[i].quantity > 0) {
 				const orderItem = await JSON.stringify({
 					product: item.id,
-					quantity: cart[i],
+					quantity: cart[i].quantity,
 				});
-				console.log('orderItem --> ', orderItem);
 				const options = {
 					method: 'POST',
 					headers: {
@@ -53,7 +56,7 @@ const Cart = (props: { menu: Menu; cookie: Array<number> }) => {
 		// * býr til pöntun útfrá körfunni
 		const body = await JSON.stringify({
 			cart: cartJson.id,
-			name: 'Tumi - test',
+			name: name,
 		});
 		const options = {
 			method: 'POST',
@@ -66,10 +69,8 @@ const Cart = (props: { menu: Menu; cookie: Array<number> }) => {
 			'https://vef2-2022-h1-synilausn.herokuapp.com/orders',
 			options
 		);
-        console.log('order --> ', order)
 		if (order.ok) {
 			const orderJSON = await order.json();
-            console.log('orderJSON --> ', orderJSON)
 			setCookie('cart', '', { maxAge: -1 });
 			setOrder('order', orderJSON.id);
 			router.push('/cartSuccess');
@@ -77,27 +78,52 @@ const Cart = (props: { menu: Menu; cookie: Array<number> }) => {
 	}
 	return (
 		<div className={styles.root}>
-            <h1>Pöntun:</h1>
+			<h1>Pöntun:</h1>
 			<div className={styles.prison}>
-				{props.menu.items.map((item, i) => {
-					if (cart[i] && cart[i] > 0) {
+				{cart.map((item, i) => {
+					if (item.quantity > 0) {
+						const index = props.menu.items.findIndex(
+							(x) => x.id === item.id
+						);
+						const food = props.menu.items[index];
 						return (
-							<div key={i} className={styles.suite}>
-								<p>{item.title}</p>
-								<h3>{cart[i]}</h3>
+							<div className={styles.cell} key={i}>
+								<a
+									style={{ width: '100%' }}
+									href={'/food/' + item.id}
+								>
+									<span>
+										<h1>{food.title}</h1>
+										<h2>{food.price}kr</h2>
+									</span>
+								</a>
+								<span>
+									<h3>{' x' + item.quantity}</h3>
+									<p>
+										Heildarverð:{' '}
+										{item.quantity * food.price}kr
+									</p>
+								</span>
+								<img src={food.image} alt="" />
 							</div>
 						);
 					}
 				})}
-				<h2 style={{gridColumn:'1'}}>{sum}</h2>
-				<button style={{gridColumn:'2'}} onClick={makeOrder}>Staðfesta pöntun</button>
+				{/* <h2 style={{gridColumn:'1'}}>{sum}</h2> */}
+				<input type="text" placeholder='Nafn fyrir pöntun' style={{gridColumn: 'span 2'}} onChange={(event) => {
+					setName(event.target.value)
+					// console.log('event --> ', event.target.value)
+				}}/>
+				<button style={{ gridColumn: 'span 2' }} onClick={makeOrder}>
+					Staðfesta pöntun
+				</button>
 			</div>
 		</div>
 	);
 };
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 	const rawMenu = await fetch(
-		'https://vef2-2022-h1-synilausn.herokuapp.com/menu'
+		'https://vef2-2022-h1-synilausn.herokuapp.com/menu?offset=0&limit=100'
 	);
 	let menu = null;
 	if (rawMenu.ok) menu = await rawMenu.json();

@@ -14,13 +14,10 @@ const Menu = (props: {
 		props.orderArray
 	);
 
-	let changingCart = props.orderArray;
 	const [cookie, setCookie] = useCookies(['cart']);
 	// console.log('endalaust')
 
 	useEffect(() => {
-		console.log('changingCart --> ', changingCart)
-		console.log('cart --> ', cart)
 		setCookie('cart', cart, { sameSite: true });
 	}, [cart]);
 
@@ -30,7 +27,11 @@ const Menu = (props: {
 			console.error('ehv vesen í addToCart, færð -1');
 			return;
 		}
-		setCart([...cart.slice(0,i),{id: cart[i].id, quantity:(cart[i].quantity+change)},...cart.slice(i+1)])
+		setCart([
+			...cart.slice(0, i),
+			{ id: cart[i].id, quantity: cart[i].quantity + change },
+			...cart.slice(i + 1),
+		]);
 	}
 
 	return (
@@ -45,15 +46,7 @@ const Menu = (props: {
 						<Link href={'/menu'}>Allt</Link>
 					</h4>
 				</div>
-				<div
-					style={{
-						gridColumn: 'span 2',
-						display: 'grid',
-						gridTemplateColumns:
-							'repeat(auto-fit, minmax(5em, 1fr));',
-						gap: '0.25em',
-					}}
-				>
+				<div className={styles.categoryLink}>
 					{props.categories.items.map((cat, i) => {
 						return (
 							<div className={styles.cell} key={i}>
@@ -83,13 +76,21 @@ const Menu = (props: {
 								<div className={styles.cellButtons}>
 									<button
 										onClick={() => {
-											changeCart(item.id, -1)
+											changeCart(item.id, -1);
 										}}
 									>
 										Fjarlægja úr körfu
 									</button>
 									{/* <h3>{cart[i].id}</h3> */}
-									<h3>{cart[cart.findIndex((x) => x.id === item.id)].quantity}</h3>
+									<h3>
+										{
+											cart[
+												cart.findIndex(
+													(x) => x.id === item.id
+												)
+											].quantity
+										}
+									</h3>
 									<button
 										onClick={() => {
 											changeCart(item.id, 1);

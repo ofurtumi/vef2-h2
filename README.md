@@ -25,7 +25,7 @@ Valmynd í haus hefur tengla á:
 
 - [x] Fyrir hverja vöru er mynd, titill og verð birt. Einnig er hægt að bæta vöru í körfu eða smella á titil/mynd til að sjá nánari upplýsingar um vöru.
 
-- [ ] Fyrir ofan, eða til hliðar, skal birta flokka. Þegar smellt er á flokk skal birta aðeins þær vörur sem eru í þeim flokk.
+- [x] Fyrir ofan, eða til hliðar, skal birta flokka. Þegar smellt er á flokk skal birta aðeins þær vörur sem eru í þeim flokk.
 
 - [ ] Fyrir ofan, eða til hliðar skal birta leitarglugga sem leitar í matseðli. Ef leit er virk og smellt er á flokk skal leita innan þess flokks.
 
@@ -36,10 +36,8 @@ Valmynd í haus hefur tengla á:
 - [x] Fyrir hverja vöru er hægt að setja vöru í körfu, þá er birt einhver tilkynning um að vara sé komin í körfu.
 
 - [x] Á körfu síðu eru allar vörur í körfu birtar ásamt titli, mynd, verði, fjölda í körfu og samtals fyrir línu. Fyrir neðan allar línur eru birt summa verðs.
-> vantar að hafa myndir, verð og heildarverð *ætti ekki að vera mjög flókið, gögnin eru öll til staðar*
 
 - [x] Aðgerð er til staðar á körfusíðunni sem breytir körfu yfir í pöntun þar sem fylla þarf inn nafn. Eftir að aðgerð er framkvæmd er farið yfir á pöntunarsíðu.
-> vantar að bæta við nafni, rn er bara test gildi
 
 ## Pöntun
 
