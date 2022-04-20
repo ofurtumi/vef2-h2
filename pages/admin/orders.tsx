@@ -15,7 +15,7 @@ const Orders = (props: { user: User; propOrders: Array<Order> }) => {
     } else {
       setOrders(props.propOrders);
     }
-  });
+  },[]);
 
   function color(s:string) {
 	  switch (s) {

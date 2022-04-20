@@ -19,7 +19,7 @@ const Order = (props: { order: Order; auth: boolean }) => {
     if (!isLoggedIn || !props.auth) router.push("/");
     const tempUser = window.localStorage.getItem("user");
     if (tempUser) user = JSON.parse(tempUser);
-  });
+  },[]);
 
   async function orderNextState() {
     if (status !== "FINISHED") {

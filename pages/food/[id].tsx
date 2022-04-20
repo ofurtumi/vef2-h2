@@ -3,7 +3,6 @@ import Link from 'next/link';
 import styles from '../../styles/main.module.css';
 
 const FoodItem = (props: { item: any }) => {
-	console.log('id --> ', props.item);
 	return (
 		<div className={styles.root}>
 			<div className={styles.mansion}>

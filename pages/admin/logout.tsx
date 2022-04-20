@@ -10,7 +10,7 @@ const Logout = () => {
 		setUser('user', '', { maxAge: -1, sameSite: true });
 		window.localStorage.removeItem('user');
 		window.localStorage.setItem('isLoggedIn', 'false');
-	});
+	},[]);
 
 	return (
 		<div className={styles.root}>
