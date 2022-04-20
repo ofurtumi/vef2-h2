@@ -49,8 +49,7 @@ Valmynd í haus hefur tengla á:
 
 ## Notendaumsjón
 
-- [ ] Þegar farið er á bakvinnslusíðu er login gluggi, eftir login sem virkaði er token og upplýsingar um notanda vistað og notandi sendur á bakvinnslu síðu. Upplýsingar skal vista í localStorage. Möguleiki skal vera á að skrá sig út sem eyðir gögnum úr localStorage.
-> vantar logout síðu
+- [x] Þegar farið er á bakvinnslusíðu er login gluggi, eftir login sem virkaði er token og upplýsingar um notanda vistað og notandi sendur á bakvinnslu síðu. Upplýsingar skal vista í localStorage. Möguleiki skal vera á að skrá sig út sem eyðir gögnum úr localStorage.
 
 Ekki þarf að útfæra viðmót ofan á aðgerðir fyrir notendur:
 

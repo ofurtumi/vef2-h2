@@ -53,3 +53,14 @@ export type Menu = {
 	offset: number;
 	items: Array<MenuItem>;
 };
+
+export type Category = {
+	id: number;
+	title: string;
+}
+
+export type Categories = {
+	limit: number;
+	offset: number;
+	items: Array<Category>;
+}

@@ -24,7 +24,8 @@
 }
 
 .cell,
-.suite {
+.suite 
+.categoryLink {
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -94,3 +95,7 @@
   border-radius: 15px;
   margin: 0 auto;
 }
+
+/* .categoryLink {
+
+} */
