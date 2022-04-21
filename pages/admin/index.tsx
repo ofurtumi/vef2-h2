@@ -66,6 +66,7 @@ const AdminPanel = (props: {
         method: "POST",
         headers: {
           "Content-Type": "multipart/form-data",
+          'Access-Control-Allow-Origin':'*',
           "Authorization": ("Bearer " + user.token),
         },
         body: JSON.stringify(item)
