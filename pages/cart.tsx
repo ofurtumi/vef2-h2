@@ -31,7 +31,6 @@ const Cart = (props: {
 			}
 		);
 		const cartJson: Cart = await cartData.json();
-		console.log('cartJson.id --> ', cartJson.id)
 
 		// * bætir í körfu öllu draslinu sem er til
 		props.menu.items.map(async (item, i) => {
@@ -51,7 +50,6 @@ const Cart = (props: {
 					`https://vef2-2022-h1-synilausn.herokuapp.com/cart/${cartJson.id}`,
 					options
 				);
-				console.log('temp --> ', temp)
 			}
 		});
 
@@ -122,7 +120,6 @@ const Cart = (props: {
 					style={{ gridColumn: 'span 2' }}
 					onChange={(event) => {
 						setName(event.target.value);
-						// console.log('event --> ', event.target.value)
 					}}
 				/>
 				<button style={{ gridColumn: 'span 2' }} onClick={makeOrder}>

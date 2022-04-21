@@ -148,7 +148,6 @@ const AdminPanel = (props: {
                           body: foodItem,
                         }
                       );
-                      console.log("res --> ", res);
                     }}
                   >
                     <input

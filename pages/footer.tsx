@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 const Footer = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
-    console.log("var --> ");
     const isLoggedIn = JSON.parse(
       window.localStorage.getItem("isLoggedIn") ?? "false"
     );

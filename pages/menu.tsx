@@ -16,10 +16,8 @@ const Menu = (props: {
     props.orderArray
   );
 
-  console.log('props.orderArray --> ', props.orderArray)
 
   const [cookie, setCookie] = useCookies(["cart"]);
-  // console.log('endalaust')
 
   useEffect(() => {
     setCookie("cart", cart, { sameSite: true, path: "/", maxAge: 3600 });
@@ -77,10 +75,6 @@ const Menu = (props: {
               router.push(url.substring(0, pos + 7) + search);
             } else if (url.includes("search")) {
               const pos = url.lastIndexOf("search");
-              console.log(
-                "url.substring(0,pos) + search --> ",
-                url.substring(0, pos) + search
-              );
               router.push(url.substring(0, pos) + search.substring(1));
             } else {
               search = "?" + search.substring(1);
@@ -148,7 +142,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     console.error("error að sækja categories", error);
   }
 
-  console.log("context.query --> ", context.query);
   const { catID, search } = context.query;
   let query = "";
   if (catID) query += "&category=" + catID;
@@ -163,7 +156,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   let orderArray = Array<{ id: number; quantity: number }>();
   const orderCookie = JSON.parse(context.req.cookies["cart"]);
-  console.log('orderCookie[0] --> ', orderCookie[0])
 
   if (menu) {
     menu.items.map((item: { id: number },i:number) => {

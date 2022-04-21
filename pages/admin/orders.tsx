@@ -95,7 +95,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const orders = await res.json();
     const reverse = orders.items.slice(0).reverse();
     reverse.map((o: Order) => doesItExist(o));
-    console.log("usedOrders --> ", usedOrders.length);
     if (reverse.length > usedOrders.length) propOrders = usedOrders;
     else propOrders = reverse;
   }
