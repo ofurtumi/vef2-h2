@@ -118,8 +118,8 @@ const AdminPanel = (props: {
             />
             <label htmlFor="category">Flokkur</label>
             <select name="category" id="category" placeholder="Flokkur">
-              {cats.map((c) => {
-                return <option value={c.id}>{c.title}</option>;
+              {cats.map((c,i) => {
+                return <option key={i} value={c.id}>{c.title}</option>;
               })}
             </select>
             <button type="submit">Bæta við</button>
@@ -147,8 +147,8 @@ const AdminPanel = (props: {
         <div className={styles.categories}>
           <h2>Flokkar</h2>
           <div>
-            {props.categories.map((c) => {
-              return <p>{c.title}</p>;
+            {props.categories.map((c, i) => {
+              return <p key={i}>{c.title}</p>;
             })}
           </div>
         </div>

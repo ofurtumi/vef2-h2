@@ -143,7 +143,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 	try {
 		if (context.req.cookies['cart'])
 			cookie = JSON.parse(context.req.cookies['cart']);
-	} catch (error) {}
+	} catch (error) {console.error(error)}
 
 	return {
 		props: { menu, cookie }, // will be passed to the page component as props

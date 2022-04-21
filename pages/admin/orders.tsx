@@ -70,7 +70,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
     res = await fetch(endpoint, options);
-  } catch (error) {}
+  } catch (error) {console.error(error)}
 
   let usedOrders: Array<Order> = [];
 
