@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { GetServerSidePropsContext } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Menu = (props: {
   categories: Categories;
   menu: Menu;
   orderArray: Array<{ id: number; quantity: number }>;
 }) => {
+  const router = useRouter();
   const [cart, setCart] = useState<{ id: number; quantity: number }[]>(
     props.orderArray
   );
@@ -57,6 +59,36 @@ const Menu = (props: {
             );
           })}
         </div>
+        <form
+          className={styles.cell}
+          style={{
+            gap: "1em",
+            gridColumn: "span 2",
+          }}
+          onSubmit={(e: any) => {
+            e.preventDefault();
+            let search = e.target.search.value;
+            search ? (search = "&search=" + search) : "";
+            const url = window.location.href;
+            if (url.includes("catID")) {
+              const pos = url.lastIndexOf("catID");
+              router.push(url.substring(0, pos + 7) + search);
+            } else if (url.includes("search")) {
+              const pos = url.lastIndexOf("search");
+              console.log(
+                "url.substring(0,pos) + search --> ",
+                url.substring(0, pos) + search
+              );
+              router.push(url.substring(0, pos) + search.substring(1));
+            } else {
+              search = "?" + search.substring(1);
+              router.push(url + search);
+            }
+          }}
+        >
+          <input type="text" name="search" />
+          <button type="submit">Leita</button>
+        </form>
         {props.menu.items.length > 0 ? (
           props.menu.items.map((item, i) => {
             return (
@@ -114,25 +146,27 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     console.error("error að sækja categories", error);
   }
 
-  const { catID = "" } = context.query;
+  console.log("context.query --> ", context.query);
+  const { catID, search } = context.query;
   let query = "";
-  if (catID) query = "&category=" + catID;
+  if (catID) query += "&category=" + catID;
+  if (search) query += "&search=" + search;
 
-  let catExist = false;
-  try {
-    if (
-      await (
-        await fetch("https://vef2-2022-h1-synilausn.herokuapp.com/categories")
-      ).ok
-    )
-      catExist = true;
-  } catch (error) {
-    console.error("category ekki til", error);
-  }
+  let catExist = true;
+  // try {
+  //   if (
+  //     await (
+  //       await fetch("https://vef2-2022-h1-synilausn.herokuapp.com/categories")
+  //     ).ok
+  //   )
+  //     catExist = true;
+  // } catch (error) {
+  //   console.error("category ekki til", error);
+  // }
 
   const rawMenu = await fetch(
     "https://vef2-2022-h1-synilausn.herokuapp.com/menu?&offset=0&limit=100" +
-      (catExist ? query : "")
+      (query ?? "")
   );
   let menu = null;
   if (rawMenu.ok) menu = await rawMenu.json();

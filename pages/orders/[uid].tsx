@@ -19,7 +19,7 @@ const Order = (props: { order: Order; auth: boolean }) => {
     if (!isLoggedIn || !props.auth) router.push("/");
     const tempUser = window.localStorage.getItem("user");
     if (tempUser) user = JSON.parse(tempUser);
-  },[]);
+  });
 
   async function orderNextState() {
     if (status !== "FINISHED") {
@@ -53,10 +53,10 @@ const Order = (props: { order: Order; auth: boolean }) => {
         },
         body: body,
       };
-      console.log("body --> ", body);
+      // console.log("body --> ", body);
 
       const update = await fetch(endpoint, options);
-      console.log("update --> ", update);
+      // console.log("update --> ", update);
       if (update.ok && tmpStatus) setStatus(tmpStatus);
     }
   }

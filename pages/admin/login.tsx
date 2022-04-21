@@ -52,6 +52,7 @@ const Admin = () => {
         sameSite: true,
       });
     }
+    router.push('/')
   };
 
   return (
