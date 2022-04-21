@@ -27,8 +27,7 @@ Valmynd í haus hefur tengla á:
 
 - [x] Fyrir ofan, eða til hliðar, skal birta flokka. Þegar smellt er á flokk skal birta aðeins þær vörur sem eru í þeim flokk.
 
-- [ ] Fyrir ofan, eða til hliðar skal birta leitarglugga sem leitar í matseðli. Ef leit er virk og smellt er á flokk skal leita innan þess flokks.
-> GERA ÞETTA MR. !!!!
+- [x] Fyrir ofan, eða til hliðar skal birta leitarglugga sem leitar í matseðli. Ef leit er virk og smellt er á flokk skal leita innan þess flokks.
 
 - [x] Ef smellt er á vöru er birt síða fyrir vöruna með lýsingu á henni ásamt öllum gögnum um vöru. Einnig tengill til að fara til baka í matseðil eða bæta í körfu.
 
@@ -63,7 +62,9 @@ Ef notandi er innskráður sem stjórnandi er hægt að:
 - [ ] Búa til, eyða, breyta vöru á matseðli
 - [x] Skoða lista af pöntunum og velja pöntun
 - [x] Fyrir opna pöntun, breyta stöðu ef staða er ekki komin í lokastöðu
+
 - [ ] Fara á síðu sem birtir pantanir sem koma inn með því að tengjast WebSocket, þegar pöntun kemur inn skal vera hægt að opna hana til að breyta stöðu hennar
+> Stína
 
 Stöður pöntunar eru:
 
