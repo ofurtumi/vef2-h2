@@ -1,0 +1,12 @@
+.root {
+    width: 95vw;
+    margin: auto;
+}
+
+.prison {
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em;
+    justify-items: center;
+}

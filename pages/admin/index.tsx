@@ -30,33 +30,56 @@ const AdminPanel = (props: {
     let tempUser = null;
     if (user) {
       tempUser = JSON.parse(user);
-      console.log("tempUser --> ", tempUser);
       setUser(tempUser);
     }
-    console.log("token --> ", user);
   }, []);
 
-  const options = {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + user.token,
-    },
-  };
+  // * er bara að fatta núna að ég commentaði eiginlega ekki neitt allt verkefnið :)
+  // * gangi þér vel að fara yfir :) :)
+  // ? hafa frekar generic option template fyrir allar þessar aðgerðir
 
   async function delFromDB(DB: string, id: number) {
+    const options = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": ("Bearer " + user.token),
+        },
+      };
     const endpoint = `https://vef2-2022-h1-synilausn.herokuapp.com/${DB}/${id}`;
     try {
       const rawDel = await fetch(endpoint, options);
-      console.log("rawDel --> ", rawDel);
       if (rawDel.ok) return;
     } catch (error) {
       console.error("error að eyða item eða category", error);
     }
   }
 
-  async function addFoodToDB(item:MenuItem) {
-      
+  async function addFoodToDB(item: {
+      title: string;
+      description: string;
+      price: number;
+      image: any;
+      category: number;
+  }) {
+    const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": ("Bearer " + user.token),
+        },
+        body: JSON.stringify(item)
+      };
+
+    console.log("addOptions --> ", options);
+    const endpoint = "https://vef2-2022-h1-synilausn.herokuapp.com/menu";
+    try {
+      const rawAdd = await fetch(endpoint, options);
+      console.log("rawAdd --> ", rawAdd);
+      if (rawAdd.ok) return;
+    } catch (error) {
+      console.error("error að bæta við item", error);
+    }
   }
 
   return (
@@ -65,6 +88,42 @@ const AdminPanel = (props: {
       <div className={styles.prison}>
         <div className={styles.items}>
           <h2>Matur</h2>
+          <form
+            onSubmit={(e: any) => {
+              e.preventDefault();
+              console.log('e.target.image --> ', e.target.image)
+              const item = {
+                title: e.target.title.value,
+                description: e.target.description.value,
+                price: Number(e.target.price.value),
+                image: e.target.image.value,
+                category: Number(e.target.category.value),
+              };
+              addFoodToDB(item);
+              console.log("item --> ", item);
+            }}
+          >
+            <input type="text" name="title" placeholder="Nafn" required />
+            <input
+              type="text"
+              name="description"
+              placeholder="Lýsing (valkvæmt)"
+            />
+            <input type="number" name="price" placeholder="Verð" required />
+            <input
+              type="file"
+              name="image"
+              placeholder="Linkur á mynd"
+              required
+            />
+            <label htmlFor="category">Flokkur</label>
+            <select name="category" id="category" placeholder="Flokkur">
+              {cats.map((c) => {
+                return <option value={c.id}>{c.title}</option>;
+              })}
+            </select>
+            <button type="submit">Bæta við</button>
+          </form>
           <div>
             {food.map((f, i) => {
               return (
