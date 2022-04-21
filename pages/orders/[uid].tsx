@@ -53,10 +53,8 @@ const Order = (props: { order: Order; auth: boolean }) => {
         },
         body: body,
       };
-      // console.log("body --> ", body);
 
       const update = await fetch(endpoint, options);
-      // console.log("update --> ", update);
       if (update.ok && tmpStatus) setStatus(tmpStatus);
     }
   }
@@ -124,7 +122,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     const order = rawOrder?.ok ? await rawOrder.json() : null;
-    // console.log('order --> ', order);
     return { props: { order: order, auth: true } };
   }
   return { props: { order: null, auth: false } };

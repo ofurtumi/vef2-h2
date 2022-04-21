@@ -15,33 +15,35 @@ const Orders = (props: { user: User; propOrders: Array<Order> }) => {
     } else {
       setOrders(props.propOrders);
     }
-  },[]);
+  }, []);
 
-  function color(s:string) {
-	  switch (s) {
-		  case 'NEW':
-			  return {backgroundColor:'white'}
-		  case 'PREPARE':
-			  return {backgroundColor:'yellow'}
-		  case 'COOKING':
-			  return {backgroundColor:'orange'}
-		  case 'READY':
-			  return {backgroundColor:'lightgreen'}
-		  case 'FINISHED':
-			  return {backgroundColor:'red'}
-		  default:
-			  break;
-	  }
+  function color(s: string) {
+    switch (s) {
+      case "NEW":
+        return { backgroundColor: "white" };
+      case "PREPARE":
+        return { backgroundColor: "yellow" };
+      case "COOKING":
+        return { backgroundColor: "orange" };
+      case "READY":
+        return { backgroundColor: "lightgreen" };
+      case "FINISHED":
+        return { backgroundColor: "red" };
+      default:
+        break;
+    }
   }
 
   return (
     <div className={styles.root}>
       <div className={styles.prison}>
         {orders.map((order, i) => {
-			
           return (
             <Link key={i} href={"/orders/" + order.id}>
-              <div className={styles.hoverable} style={color(order.current_state)}>
+              <div
+                className={styles.hoverable}
+                style={color(order.current_state)}
+              >
                 <h2 style={{ margin: "0" }}>{i + 1}</h2>
                 <p>Order id: {order.id}</p>
                 <p>Order status: {order.current_state}</p>
@@ -70,7 +72,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
     res = await fetch(endpoint, options);
-  } catch (error) {console.error(error)}
+  } catch (error) {
+    console.error(error);
+  }
 
   let usedOrders: Array<Order> = [];
 
@@ -89,11 +93,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   let propOrders = null;
   if (res && res.ok) {
     const orders = await res.json();
-	const reverse = orders.items.slice(0).reverse();
+    const reverse = orders.items.slice(0).reverse();
     reverse.map((o: Order) => doesItExist(o));
     console.log("usedOrders --> ", usedOrders.length);
     if (reverse.length > usedOrders.length) propOrders = usedOrders;
-	else propOrders =reverse
+    else propOrders = reverse;
   }
 
   return { props: { user, propOrders } };

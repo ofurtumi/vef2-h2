@@ -16,12 +16,14 @@ const Menu = (props: {
     props.orderArray
   );
 
+  console.log('props.orderArray --> ', props.orderArray)
+
   const [cookie, setCookie] = useCookies(["cart"]);
   // console.log('endalaust')
 
   useEffect(() => {
     setCookie("cart", cart, { sameSite: true, path: "/", maxAge: 3600 });
-  }, [cart]);
+  },[cart]);
 
   function changeCart(id: number, change: number) {
     const i = cart.findIndex((x) => x.id === id);
@@ -152,18 +154,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (catID) query += "&category=" + catID;
   if (search) query += "&search=" + search;
 
-  let catExist = true;
-  // try {
-  //   if (
-  //     await (
-  //       await fetch("https://vef2-2022-h1-synilausn.herokuapp.com/categories")
-  //     ).ok
-  //   )
-  //     catExist = true;
-  // } catch (error) {
-  //   console.error("category ekki til", error);
-  // }
-
   const rawMenu = await fetch(
     "https://vef2-2022-h1-synilausn.herokuapp.com/menu?&offset=0&limit=100" +
       (query ?? "")
@@ -172,20 +162,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (rawMenu.ok) menu = await rawMenu.json();
 
   let orderArray = Array<{ id: number; quantity: number }>();
+  const orderCookie = JSON.parse(context.req.cookies["cart"]);
+  console.log('orderCookie[0] --> ', orderCookie[0])
+
   if (menu) {
-    menu.items.map((item: { id: number }) => {
+    menu.items.map((item: { id: number },i:number) => {
       let itemid: number = item.id;
-      orderArray.push({ id: itemid, quantity: 0 });
+      let cookieID = orderCookie.findIndex((x:any) => x.id === item.id);
+      orderArray.push({ id: itemid, quantity: cookieID !== -1 ? orderCookie[cookieID].quantity : 0 });
     });
   }
-  // console.log('orderArray --> ', orderArray)
-  try {
-    if (context.req.cookies["cart"]) {
-      orderArray = JSON.parse(context.req.cookies["cart"]);
-    }
-  } catch (error) {
-    console.error("asdf", error);
-  }
+  menu.items = menu.items.sort((a:{id:number, quantity:number}, b:{id:number, quantity:number}) => (a.id > b.id) ? 1 : -1)
 
   return {
     props: { categories, menu, orderArray }, // will be passed to the page component as props

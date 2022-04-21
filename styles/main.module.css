@@ -3,6 +3,7 @@
 	width: 95vw;
 	display: flex;
 	justify-content: center;
+	margin-bottom: 3em;
 }
 
 .home {
@@ -15,7 +16,6 @@
 
 .prison {
 	max-width: 1000px;
-	margin: 1em;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 	justify-content: center;
