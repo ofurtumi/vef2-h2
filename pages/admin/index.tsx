@@ -11,6 +11,7 @@ const AdminPanel = (props: {
 }) => {
   const router = useRouter();
   const [food, setFood] = useState(props.food);
+  const [update, setUpdate] = useState("");
   const [cats, setCats] = useState(props.categories);
 
   useEffect(() => {
@@ -18,14 +19,6 @@ const AdminPanel = (props: {
       window.localStorage.setItem("isLoggedIn", "false");
       router.push("/");
     }
-    // if (!JSON.parse(window.localStorage.getItem("isLoggedIn") ?? "false"))
-    //   router.push("/");
-    // const user = window.localStorage.getItem("user");
-    // let tempUser = null;
-    // if (user) {
-    //   tempUser = JSON.parse(user);
-    //   setUser(tempUser);
-    // }
   }, []);
 
   // * er bara að fatta núna að ég commentaði eiginlega ekki neitt allt verkefnið :)
@@ -36,17 +29,26 @@ const AdminPanel = (props: {
     const options = {
       method: "DELETE",
       headers: {
-        "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + props.user.token,
       },
     };
     const endpoint = `https://vef2-2022-h1-synilausn.herokuapp.com/${DB}/${id}`;
-    try {
-      const rawDel = await fetch(endpoint, options);
-      if (rawDel.ok) return;
-    } catch (error) {
-      console.error("error að eyða item eða category", error);
-    }
+    const res = await fetch(endpoint, options);
+    const newFood = await (
+      await fetch("https://vef2-2022-h1-synilausn.herokuapp.com/menu?limit=100")
+    ).json();
+    const newCats = await (
+      await fetch(
+        "https://vef2-2022-h1-synilausn.herokuapp.com/categories?limit=100"
+      )
+    ).json();
+    setFood(newFood.items);
+    setFood(newCats.items);
+    setUpdate(
+      "Tókst að eyða " + DB === "menu" ? "mat" : "flokk" + " með id " + id
+    );
+    console.log("update --> ", update);
+    console.log("food --> ", food);
   }
 
   async function addFoodToDB(item: FormData) {
@@ -60,18 +62,23 @@ const AdminPanel = (props: {
 
     const endpoint = "https://vef2-2022-h1-synilausn.herokuapp.com/menu";
     const res = await fetch(endpoint, options);
+    const added = await res.json();
     const newFood = await (
       await fetch("https://vef2-2022-h1-synilausn.herokuapp.com/menu?limit=100")
     ).json();
     setFood(newFood.items);
+    setUpdate("Tókst að bæta við " + added.title);
   }
 
   return (
     <div className={styles.root}>
-      <h1 style={{ textAlign: "center" }}>Halló {props.user.user.username}</h1>
+      <h1 style={{ textAlign: "center" }}>
+        Halló {props.user?.user.username ?? ""}
+      </h1>
+      <h2 style={{ margin: "0" }}>{update}</h2>
       <div className={styles.prison}>
         <div className={styles.items}>
-          <h2>Matur</h2>
+          <h2 style={{ textAlign: "center", margin: "0" }}>Matur</h2>
           <div className={styles.cell}>
             <h3>Bæta á matseðil</h3>
             <form
@@ -79,8 +86,11 @@ const AdminPanel = (props: {
                 e.preventDefault();
                 const foodItem = new FormData();
                 foodItem.append("title", e.target.title.value);
+                e.target.title.value = "";
                 foodItem.append("price", e.target.price.value);
+                e.target.price.value = 0;
                 foodItem.append("description", e.target.description.value);
+                e.target.description.value = "";
                 foodItem.append("category", e.target.category.value);
                 foodItem.append("image", e.target.image.files[0]);
                 addFoodToDB(foodItem);
@@ -147,7 +157,8 @@ const AdminPanel = (props: {
                           },
                           body: foodItem,
                         }
-                      );
+                        );
+                        setUpdate('Tókst að uppfæra ' + f.title)
                     }}
                   >
                     <input
@@ -184,6 +195,7 @@ const AdminPanel = (props: {
                         defaultValue={f.category}
                       >
                         {cats.map((c, i) => {
+                          console.log('c.id, c.value --> ', c.id, c.title)
                           return (
                             <option key={i} value={c.id}>
                               {c.title}
@@ -193,28 +205,39 @@ const AdminPanel = (props: {
                       </select>
                     </span>
                     <button type="submit">Breyta</button>
-                    <button
-                      onClick={() => {
-                        let tempFood = [...food];
-                        tempFood.splice(i, 1);
-                        delFromDB("menu", f.id);
-                        setFood(tempFood);
-                      }}
-                      style={{ background: "#f00" }}
-                    >
-                      Eyða!
-                    </button>
                   </form>
+                  <button
+                    onClick={() => {
+                      delFromDB("menu", f.id);
+                    }}
+                    style={{ background: "#f00" }}
+                  >
+                    Eyða!
+                  </button>
                 </div>
               );
             })}
           </div>
         </div>
-        <div className={styles.categories}>
+        <div className={styles.items}>
           <h2>Flokkar</h2>
-          <div>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "0.5em" }}
+          >
             {props.categories.map((c, i) => {
-              return <p key={i}>{c.title}</p>;
+              return (
+                <div key={i} className={styles.cell}>
+                  <p>{c.title}</p>
+                  <button
+                    onClick={() => {
+                      delFromDB("categories", c.id);
+                    }}
+                    style={{ background: "#f00" }}
+                  >
+                    Eyða!
+                  </button>
+                </div>
+              );
             })}
           </div>
         </div>

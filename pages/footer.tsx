@@ -18,11 +18,11 @@ const Footer = () => {
         margin: "0 auto",
         display: "flex",
         justifyContent: JC,
-		alignItems: 'center',
+        alignItems: "center",
         position: "fixed",
         bottom: "0",
         background: "#eee",
-		height: '2em'
+        height: "2em",
       }}
     >
       {loggedIn ? <h3 style={{ margin: "0 1em" }}>Innskráð/ur</h3> : null}
@@ -47,9 +47,15 @@ const Footer = () => {
           </Link>
         </div>
       ) : (
-        <Link href="/admin/login" passHref>
-          Skrá inn
-        </Link>
+        <div
+          style={{
+            margin: "0 1em",
+          }}
+        >
+          <Link href="/admin/login" passHref>
+            Skrá inn
+          </Link>
+        </div>
       )}
     </footer>
   );
