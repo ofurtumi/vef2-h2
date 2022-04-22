@@ -15,7 +15,7 @@ const Orders = (props: { user: User; propOrders: Array<Order> }) => {
     } else {
       setOrders(props.propOrders);
     }
-  }, []);
+  }, [props.propOrders]);
 
   function color(s: string) {
     switch (s) {
@@ -39,7 +39,7 @@ const Orders = (props: { user: User; propOrders: Array<Order> }) => {
       <div className={styles.prison}>
         {orders.map((order, i) => {
           return (
-            <Link key={i} href={"/orders/" + order.id}>
+            <Link key={i} href={"/orders/" + order.id} passHref>
               <div
                 className={styles.hoverable}
                 style={color(order.current_state)}

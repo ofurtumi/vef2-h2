@@ -5,6 +5,7 @@ import styles from '../styles/main.module.css';
 import { GetServerSidePropsContext } from 'next';
 import { useCookies } from 'react-cookie';
 
+
 type Cart = {
 	id: number;
 	created: string;

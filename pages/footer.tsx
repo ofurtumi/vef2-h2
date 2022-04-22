@@ -8,7 +8,7 @@ const Footer = () => {
       window.localStorage.getItem("isLoggedIn") ?? "false"
     );
     setLoggedIn(isLoggedIn);
-  });
+  }), [setLoggedIn];
   const JC = loggedIn ? "space-between" : "flex-end";
   return (
     <footer

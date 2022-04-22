@@ -2,6 +2,7 @@ import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import styles from '../../styles/main.module.css';
 
+
 const FoodItem = (props: { item: any }) => {
 	return (
 		<div className={styles.root}>
