@@ -4,6 +4,7 @@ import { Menu } from '../types';
 import styles from '../styles/main.module.css';
 import { GetServerSidePropsContext } from 'next';
 import { useCookies } from 'react-cookie';
+import Image from 'next/image'
 
 type Cart = {
 	id: number;
@@ -108,7 +109,7 @@ const Cart = (props: {
 										{item.quantity * food.price}kr
 									</p>
 								</span>
-								<img src={food.image} alt="" />
+								<Image src={food.image} alt="" />
 							</div>
 						);
 					}

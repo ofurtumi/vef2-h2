@@ -1,6 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import styles from '../../styles/main.module.css';
+import Image from 'next/image'
 
 const FoodItem = (props: { item: any }) => {
 	return (
@@ -10,7 +11,7 @@ const FoodItem = (props: { item: any }) => {
 				<h1>{props.item.title}</h1>
 				<h2>{props.item.price}</h2>
 				<p>{props.item.description}</p>
-				<img src={props.item.image} alt="" />
+				<Image src={props.item.image} alt="" />
 				<Link href={'/menu'}>
 					<a style={{textAlign:'center',marginTop:'0.5em'}}>
 						<h3>Aftur til baka</h3>
