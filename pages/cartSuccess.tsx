@@ -16,7 +16,8 @@ const OrderSuccess = (props: { id: any }) => {
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-	const id = context.req.cookies['order'];
+	const orderData = context.req.cookies['order'];
+  const id = orderData;
 	console.log('id --> ', id);
 	// ? hérna á að koma websocket dæmi til að sækja upplýsingar um staka pöntun
 	// const rawOrder = await fetch('https://vef2-2022-h1-synilausn.herokuapp.com/orders/'+id)

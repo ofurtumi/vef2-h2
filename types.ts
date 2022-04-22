@@ -28,6 +28,7 @@ export type Order = {
 	created: string;
 	current_state: string;
 	current_state_created: string;
+	status: Array<{ state: string; created: string }>;
 	lines: Array<Line>;
 };
 
@@ -57,10 +58,10 @@ export type Menu = {
 export type Category = {
 	id: number;
 	title: string;
-}
+};
 
 export type Categories = {
 	limit: number;
 	offset: number;
 	items: Array<Category>;
-}
+};

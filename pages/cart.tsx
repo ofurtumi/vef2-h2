@@ -5,6 +5,7 @@ import styles from '../styles/main.module.css';
 import { GetServerSidePropsContext } from 'next';
 import { useCookies } from 'react-cookie';
 
+
 type Cart = {
 	id: number;
 	created: string;
@@ -46,7 +47,7 @@ const Cart = (props: {
 					},
 					body: orderItem,
 				};
-				await fetch(
+				const temp = await fetch(
 					`https://vef2-2022-h1-synilausn.herokuapp.com/cart/${cartJson.id}`,
 					options
 				);
@@ -72,7 +73,11 @@ const Cart = (props: {
 		if (order.ok) {
 			const orderJSON = await order.json();
 			setCookie('cart', '', { maxAge: -1 });
-			setOrder('order', orderJSON.id);
+			setOrder('order', orderJSON.id, {
+				path: '/',
+				maxAge: 3600,
+				sameSite: true,
+			});
 			router.push('/cartSuccess');
 		}
 	}
@@ -110,10 +115,14 @@ const Cart = (props: {
 					}
 				})}
 				{/* <h2 style={{gridColumn:'1'}}>{sum}</h2> */}
-				<input type="text" placeholder='Nafn fyrir pöntun' style={{gridColumn: 'span 2'}} onChange={(event) => {
-					setName(event.target.value)
-					// console.log('event --> ', event.target.value)
-				}}/>
+				<input
+					type="text"
+					placeholder="Nafn fyrir pöntun"
+					style={{ gridColumn: 'span 2' }}
+					onChange={(event) => {
+						setName(event.target.value);
+					}}
+				/>
 				<button style={{ gridColumn: 'span 2' }} onClick={makeOrder}>
 					Staðfesta pöntun
 				</button>
@@ -132,7 +141,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 	try {
 		if (context.req.cookies['cart'])
 			cookie = JSON.parse(context.req.cookies['cart']);
-	} catch (error) {}
+	} catch (error) {console.error(error)}
 
 	return {
 		props: { menu, cookie }, // will be passed to the page component as props

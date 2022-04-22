@@ -1,0 +1,64 @@
+.root {
+  width: 95vw;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 3em;
+}
+
+.prison {
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em;
+  justify-items: center;
+}
+
+.items {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 0.5em;
+  gap: 1em;
+}
+
+.cell {
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  align-items: center;
+}
+
+.cell * {
+  margin: 0;
+}
+
+.cell form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: 0.25em;
+}
+
+.selectFile {
+  max-width: 100%;
+  justify-self: flex-start;
+  grid-column: span 2;
+}
+
+.cell button {
+  width: 100%;
+  grid-column: span 3;
+}
+
+.changeAble input {
+  border: none;
+}
