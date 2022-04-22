@@ -3,7 +3,9 @@ import io from 'socket.io-client'
 let socket
 
 const Pontun = () => {
-    useEffect(() => socketInitializer(), [])
+    useEffect(() => {
+        socketInitializer()
+    }, [])
 
     const socketInitializer = async () => {
         await fetch('/api/socket')
