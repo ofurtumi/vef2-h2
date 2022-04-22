@@ -156,7 +156,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (rawMenu.ok) menu = await rawMenu.json();
 
   let orderArray = Array<{ id: number; quantity: number }>();
-  const orderCookie = JSON.parse(context.req.cookies["cart"]);
+  const cookie = context.req.cookies["cart"]
+  const orderCookie = JSON.parse(cookie ?? '[]');
 
   if (menu) {
     menu.items.map((item: { id: number },i:number) => {
