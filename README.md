@@ -59,7 +59,7 @@ Ekki þarf að útfæra viðmót ofan á aðgerðir fyrir notendur:
 Ef notandi er innskráður sem stjórnandi er hægt að:
 
 - [ ] Búa til, eyða, breyta flokk
-> Tumi, föstudagur
+> Tumi, hægt að eyða ekki breyta eða búa til :(
 
 - [x] Búa til, eyða, breyta vöru á matseðli
 - [x] Skoða lista af pöntunum og velja pöntun
@@ -89,6 +89,6 @@ Stöður pöntunar eru:
 
 # Tæki og tól ❗ 
 
-- [ ] Setja skal upp eslint fyrir JavaScript. Engar villur skulu koma fram ef npm run lint er keyrt. Leyfilegt er að skilgreina hvaða reglusett er notað, ekki er krafa um að nota það sem hefur verið notað í öðrum verkefnum.
+- [x] Setja skal upp eslint fyrir JavaScript. Engar villur skulu koma fram ef npm run lint er keyrt. Leyfilegt er að skilgreina hvaða reglusett er notað, ekki er krafa um að nota það sem hefur verið notað í öðrum verkefnum.
 - [ ] Skrifa skal a.m.k. fjögur test með [Cypress](https://www.cypress.io/). Í `README` skal tiltaka hvernig test eru keyrð.
 > Gunnar
