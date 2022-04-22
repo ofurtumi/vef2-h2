@@ -59,9 +59,9 @@ Ekki þarf að útfæra viðmót ofan á aðgerðir fyrir notendur:
 Ef notandi er innskráður sem stjórnandi er hægt að:
 
 - [ ] Búa til, eyða, breyta flokk
-- [ ] Búa til, eyða, breyta vöru á matseðli
-> Tumi, fimmtudagur
+> Tumi, föstudagur
 
+- [x] Búa til, eyða, breyta vöru á matseðli
 - [x] Skoða lista af pöntunum og velja pöntun
 - [x] Fyrir opna pöntun, breyta stöðu ef staða er ekki komin í lokastöðu
 
@@ -76,18 +76,15 @@ Stöður pöntunar eru:
 * `READY`, pöntun er tilbúin til afhendingar til viðskiptvinar
 * `FINISHED`, pöntun hefur verið afhend viðskiptavin
 
-# Útlit
+# Útlit ✔️
 
 - [x] Setja skal upp einfalt, skalanlegt útlit fyrir vefinn. Mælst er til að nota grid og flexbox.
 
-# Next.js og almenn virkni ❗
+# Next.js og almenn virkni ✔️
 
 - [x] Setja skal verkefnið upp með Next.js og TypeScript. Setja skal upp með _server-side rendering_.
-
 - [x] Þegar kallað er í vefþjónustu skal birta loading state og bregðast við villum. Þar sem gögn geta verið tóm skal huga að empty state.
-
-- [ ] Ef síða finnst ekki skal birta 404 síðu.
-> gunnar eða stína nennið þið
+- [x] Ef síða finnst ekki skal birta 404 síðu.
 - [X] Ef reynt er að skoða síðu sem ekki er heimild til að skoða skal birta að ekki sé heimild til að skoða.
 
 # Tæki og tól ❗ 
