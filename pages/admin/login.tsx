@@ -14,7 +14,7 @@ const Admin = () => {
       setLoggedIn(true);
       router.push("/");
     }
-  },[]);
+  },[router]);
 
   const [cookie, setCookie] = useCookies(["user"]);
 

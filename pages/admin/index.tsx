@@ -19,7 +19,7 @@ const AdminPanel = (props: {
       window.localStorage.setItem("isLoggedIn", "false");
       router.push("/");
     }
-  }, []);
+  }, [props.user]);
 
   // * er bara að fatta núna að ég commentaði eiginlega ekki neitt allt verkefnið :)
   // * gangi þér vel að fara yfir :) :)

@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 import { GetServerSidePropsContext } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Image from 'next/image'
+
 
 const Menu = (props: {
   categories: Categories;
@@ -96,7 +96,7 @@ const Menu = (props: {
                     <h2>{item.price}kr</h2>
                   </span>
                 </a>
-                <Image src={item.image} alt="" />
+                <img src={item.image} alt="" />
                 <div className={styles.cellButtons}>
                   <button
                     onClick={() => {

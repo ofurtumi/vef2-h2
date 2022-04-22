@@ -13,7 +13,7 @@ const Logout = () => {
 		window.localStorage.removeItem('user');
 		window.localStorage.setItem('isLoggedIn', 'false');
 		router.push('/')
-	},[]);
+	},[setUser]);
 
 	return (
 		<div className={styles.root}>
